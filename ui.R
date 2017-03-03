@@ -7,14 +7,17 @@ source("accessToken.R")
 
 ui <- fluidPage(
   titlePanel("EatOut"),
-  sidebarLayout(
-    sidebarPanel(
+  leafletOutput('map'),
+  absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+                draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+                width = 330, height = "auto",
+  # sidebarLayout(
+  #   sidebarPanel(
       textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address")
-    ),
-    mainPanel(
-      leafletOutput('map')
     )
-  )
+    
+    
 )
+
 
 shinyUI(ui)
