@@ -35,6 +35,11 @@ server <- function(input, output){
     return(m)
   })
   
+ ## output$table <- renderDataTable({
+  ##  final.frame <- locationData()
+   ## return(final.frame)
+ ## })
+  
 }
 
 shinyServer(server)

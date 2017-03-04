@@ -13,6 +13,7 @@ ui <- fluidPage(
     ),
     mainPanel(
       leafletOutput('map')
+      #dataTableOutput('table')
     )
   )
 )
