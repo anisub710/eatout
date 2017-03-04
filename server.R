@@ -28,9 +28,9 @@ server <- function(input, output){
     else{
       m <- leaflet() %>%
         addTiles() %>%  # Add default OpenStreetMap map tiles
-        addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(data$name, "<br>",
-                                                                                       "Price:", data$price,"<br>",
-                                                                                       "Rating:", data$rating))
+        addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
+                                                                                       "Price:", locationData()$price,"<br>",
+                                                                                       "Rating:", locationData()$rating))
     }
     return(m)
   })
