@@ -12,7 +12,7 @@ server <- function(input, output){
   #Gets the response based on input location
   locationData <- reactive({
     query = list(location = input$chosen.location)
-    response <-GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
+    response <- GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
     body <- fromJSON(content(response, "text"))
     data <- body$businesses
     return(data)
