@@ -37,8 +37,6 @@ server <- function(input, output){
   })
   
   output$table <- renderDataTable({
-    if(is.null(locationData))
-      return(NULL)
     final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
   })
