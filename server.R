@@ -2,6 +2,7 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
+library(dplyr)
 
 source("accessToken.R")
 
@@ -28,17 +29,19 @@ server <- function(input, output){
     else{
       m <- leaflet() %>%
         addTiles() %>%  # Add default OpenStreetMap map tiles
-        addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(data$name, "<br>",
-                                                                                       "Price:", data$price,"<br>",
-                                                                                       "Rating:", data$rating))
+        addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
+                                                                                       "Price:", locationData()$price,"<br>",
+                                                                                       "Rating:", locationData()$rating))
     }
     return(m)
   })
   
- ## output$table <- renderDataTable({
-  ##  final.frame <- locationData()
-   ## return(final.frame)
- ## })
+  output$table <- renderDataTable({
+    if(is.null(locationData))
+      return(NULL)
+    final.frame <- locationData() %>% select(name, rating)
+    return(final.frame)
+  })
   
 }
 
