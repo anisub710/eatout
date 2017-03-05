@@ -4,13 +4,14 @@ library(httr)
 library(jsonlite)
 
 source("accessToken.R")
+source("data/yelpRatings.csv")
 
 server <- function(input, output){
   
   #Gets the response based on input location
   locationData <- reactive({
     query = list(location = input$chosen.location)
-    response <-GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
+    response <- GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
     #print(response)
     body <- fromJSON(content(response, "text"))
     data <- body$businesses
