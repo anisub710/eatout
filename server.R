@@ -2,10 +2,16 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
+library(dplyr)
 
 source("accessToken.R")
 restaurant.ratings <- read.csv("data/yelpRatings.csv")
 colnames(restaurant.ratings) <- c("ratings", "county", "state")
+
+static.data <- read.csv("data/yelpRatings.csv")
+data.names <- c("rating", "county", "state")
+colnames(static.data) <- data.names
+state.data <- static.data %>% group_by(state) %>% summarise('Average Rating' = mean(rating)) 
 
 server <- function(input, output){
   
@@ -37,12 +43,25 @@ server <- function(input, output){
         addTiles() %>%  # Add default OpenStreetMap map tiles
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
+<<<<<<< HEAD
                                                                                       "Rating:", locationData()$rating))
+=======
+                                                                                       "Rating:", locationData()$rating))
+>>>>>>> parker
     }
   
   return(m)
   })
   
+<<<<<<< HEAD
+=======
+  output$table <- renderDataTable({
+    if(is.null(locationData()))
+      return(state.data)
+    final.frame <- locationData() %>% select(name, rating)
+    return(final.frame)
+  })
+>>>>>>> parker
   
 }
 

@@ -2,11 +2,13 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
+library(dplyr)
 
 source("accessToken.R")
 
 ui <- fluidPage(
   titlePanel("EatOut"),
+
   tabsetPanel(
     tabPanel('Map',
     leafletOutput('map'),
@@ -17,6 +19,7 @@ ui <- fluidPage(
   #   sidebarPanel(
         textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address")
       )
+
     )
   )
     
