@@ -6,6 +6,11 @@ library(dplyr)
 
 source("accessToken.R")
 
+static.data <- read.csv("yelpRatings.csv")
+data.names <- c("rating", "county", "state")
+colnames(static.data) <- data.names
+state.data <- static.data %>% group_by(state) %>% summarise('Average Rating' = mean(rating)) 
+
 server <- function(input, output){
   
   #Gets the response based on input location
@@ -37,6 +42,8 @@ server <- function(input, output){
   })
   
   output$table <- renderDataTable({
+    if(is.null(locationData()))
+      return(state.data)
     final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
   })
