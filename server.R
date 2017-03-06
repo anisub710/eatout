@@ -26,7 +26,7 @@ pal <- colorBin(
 
 labels <- sprintf(
   "<strong>%s</strong><br/><strong> Rating: </strong> <em>%g</em> ",
-  as.character(restaurant.data$NAME), restaurant.data$ratings) %>% 
+  as.character(restaurant.data$NAME), round(restaurant.data$ratings, 2)) %>% 
   lapply(htmltools::HTML)
 
 
@@ -83,6 +83,7 @@ server <- function(input, output){
     coordinates <- locationData()$coordinates  
     if(is.null(coordinates)){
       m <- choropleth
+      
     }
     
     else{
