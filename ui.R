@@ -12,7 +12,7 @@ ui <- fluidPage(
     leafletOutput('map'),
     absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                   draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
-                  width = 330, height = "auto",
+                  width = "auto", height = "auto",
   # sidebarLayout(
   #   sidebarPanel(
         textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address")
@@ -21,6 +21,7 @@ ui <- fluidPage(
   )
     
 )
+
 
 
 shinyUI(ui)

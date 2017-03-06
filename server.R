@@ -2,10 +2,59 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
+library(dplyr)
+library(geojsonio)
+library(sp)
 
 source("accessToken.R")
-restaurant.ratings <- read.csv("data/yelpRatings.csv")
-colnames(restaurant.ratings) <- c("ratings", "county", "state")
+
+states <- geojsonio::geojson_read("json/us-states.json", what = "sp")
+
+restaurant.ratings <- read.csv("data/yelpRatings.csv", stringsAsFactors = FALSE)
+colnames(restaurant.ratings) <- c("ratings", "county", "NAME")
+restaurant.ratings <- restaurant.ratings %>% 
+                      group_by(NAME) %>% 
+                      summarise(ratings = mean(ratings))
+
+restaurant.ratings[12, 1] <- "Hawaii"
+restaurant.data <- merge(states, restaurant.ratings)
+ 
+pal <- colorBin(
+  palette = "Reds", #Greys
+  domain = restaurant.data$ratings, bins = c(3.13, 3.36, 3.59, 3.82, 4.06))
+
+labels <- sprintf(
+  "<strong>%s</strong><br/><strong> Rating: </strong> <em>%g</em> ",
+  as.character(restaurant.data$NAME), restaurant.data$ratings) %>% 
+  lapply(htmltools::HTML)
+
+
+
+
+ choropleth <- leaflet(restaurant.data) %>%
+              setView(lng = -94, lat = 37.45, zoom = 4) %>% 
+              addTiles()%>%
+               addLegend(pal = pal, values = ~density, opacity = 0.7, title = "Ratings",
+             position = "bottomright") %>% 
+                 addPolygons(fillColor = ~pal(ratings),
+                              weight = 1, #2
+                              opacity = 1,
+                              color = "white",
+                              dashArray = "1",
+                              fillOpacity = 0.7,
+                              highlight = highlightOptions(
+                                weight = 3, #5
+                                color = "#666",
+                                dashArray = "",
+                                fillOpacity = 0.7,
+                                bringToFront = TRUE),
+                              label = labels,
+                              labelOptions = labelOptions(
+                                style = list("font-weight" = "normal", padding = "3px 8px"),
+                                textsize = "15px",
+                                direction = "auto"))   
+
+choropleth 
 
 server <- function(input, output){
   
@@ -27,9 +76,7 @@ server <- function(input, output){
   output$map <- renderLeaflet({
     coordinates <- locationData()$coordinates  
     if(is.null(coordinates)){
-      m <- leaflet() %>% 
-        addTiles() %>% 
-        setView(lng = -94, lat = 37.45, zoom = 4)
+      m <- choropleth
     }
     
     else{
