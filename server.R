@@ -60,7 +60,7 @@ choropleth
 static.data <- read.csv("data/yelpRatings.csv")
 data.names <- c("rating", "county", "state")
 colnames(static.data) <- data.names
-state.data <- static.data %>% group_by(state) %>% summarise('Average Rating' = mean(rating)) 
+state.data <- static.data %>% group_by(state) %>% summarise('Average Rating' = round(mean(rating), 2))
 
 server <- function(input, output){
   
@@ -99,6 +99,8 @@ server <- function(input, output){
 
   output$table <- renderDataTable({
     if(is.null(locationData()))
+      state.data.names <- c("State", "Average Rating")
+      colnames(state.data) <- state.data.names
       return(state.data)
     final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
