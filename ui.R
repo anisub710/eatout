@@ -18,7 +18,8 @@ ui <- fluidPage(
                   width = "auto", height = "auto",
   # sidebarLayout(
   #   sidebarPanel(
-        textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address")
+        textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
+        checkboxInput('open', label = "Only Currently Open?", value = FALSE)
       )
 
     )

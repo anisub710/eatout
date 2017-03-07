@@ -67,7 +67,7 @@ server <- function(input, output){
   
   #Gets the response based on input location
   locationData <- reactive({
-    query = list(location = input$chosen.location)
+    query = list(location = input$chosen.location,open_now = input$open)
     response <- GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
     body <- fromJSON(content(response, "text"))
     data <- body$businesses
@@ -100,12 +100,14 @@ server <- function(input, output){
   
 
   output$table <- renderDataTable({
-    if(is.null(locationData()))
+    if(is.null(locationData())){
       state.data.names <- c("State", "Average Rating")
       colnames(state.data) <- state.data.names
       return(state.data)
+    }else{
     final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
+    }
   })
   
 }
