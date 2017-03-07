@@ -1,0 +1,26 @@
+@font-face {
+    font-family: BigJohn;
+    src: url(../fonts/BIGJOHN.otf);
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.panel {
+    padding: 20px;
+}
+
+.navbar > .container-fluid > .navbar-header > .navbar-brand {
+    /*padding: 0 20px;*/
+    background-color: #232323;
+    color: white;
+}
+
+.navbar-brand, .navbar-header, .navbar-default, .navbar-static-top {
+    font-family: Arial, sans-serif;
+    font-weight: bolder;
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 30px;
+}

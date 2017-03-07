@@ -99,7 +99,7 @@ server <- function(input, output){
         addTiles() %>%  # Add default OpenStreetMap map tiles
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
-                                                                                      "Rating:", locationData()$rating))
+                                                                                       "Rating:", locationData()$rating))
     }
   
   return(m)
