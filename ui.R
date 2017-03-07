@@ -13,9 +13,6 @@ ui <- fluidPage(#theme = "style.css",
   #),
   
   navbarPage("EATOUT"),
-  
-  tabsetPanel(
-    tabPanel('Map',
     leafletOutput('map'),
     dataTableOutput('table'),
     absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -27,11 +24,6 @@ ui <- fluidPage(#theme = "style.css",
         checkboxInput('open', label = "Only Currently Open?", value = FALSE)
       )
 
-    )
-  )
-    
 )
-
-
 
 shinyUI(ui)
