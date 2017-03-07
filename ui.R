@@ -9,8 +9,6 @@ source("accessToken.R")
 ui <- fluidPage(
   titlePanel("EatOut"),
 
-  tabsetPanel(
-    tabPanel('Map',
     leafletOutput('map'),
     dataTableOutput('table'),
     absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -22,9 +20,6 @@ ui <- fluidPage(
         checkboxInput('open', label = "Only Currently Open?", value = FALSE)
       )
 
-    )
-  )
-    
 )
 
 
