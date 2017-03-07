@@ -3,7 +3,7 @@ library(shiny)
 library(httr)
 library(jsonlite)
 library(dplyr)
-#install.package('geojsonio')
+#install.packages('geojsonio')
 library(geojsonio)
 library(sp)
 
