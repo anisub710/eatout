@@ -84,7 +84,11 @@ server <- function(input, output){
     if(is.null(coordinates)){
       m <- choropleth
     }
+    else if(){
+      
+    }
     
+      
     else{
       m <- leaflet() %>%
         addTiles() %>%  # Add default OpenStreetMap map tiles
