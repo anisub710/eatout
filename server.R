@@ -7,6 +7,7 @@ library(dplyr)
 library(geojsonio)
 library(sp)
 
+
 #holds the api key for Yelp Fusion.
 source("accessToken.R")
 
@@ -60,7 +61,7 @@ labels <- sprintf("<strong>%s</strong><br/><strong> Rating: </strong> <em>%g</em
                                           textsize = "15px",
                                           direction = "auto"))   
 
-choropleth 
+ 
 
 #reads data for table
 static.data <- read.csv("data/yelpRatings.csv")
@@ -76,45 +77,78 @@ server <- function(input, output){
   
   #Gets the response based on input location
   locationData <- reactive({
-    query = list(location = input$chosen.location,open_now = input$open)
+    query <- list(location = input$chosen.location,open_now = input$open)
     response <- GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = query, add_headers(Authorization = access.code))
     body <- fromJSON(content(response, "text"))
     data <- body$businesses
     return(data)
   })
   
-  # getBounds <- reactive({
-  #   if(input$chosen.location == "")
-  #     print(input$map_bounds)
-  # })
+  #Gets the response data based on clicked state.
+  locationDataByBounds <- reactive({
+    click.coordinates <- input$map_shape_click
+    location.bound <- list(latitude = click.coordinates$lat, longitude = click.coordinates$lng, open_now = input$open)
+    bounds.response <- GET ("https://api.yelp.com/v3/businesses/search?term=food&limit=50", query = location.bound, add_headers(Authorization = access.code))
+    bound.body <- fromJSON(content(bounds.response, "text"))
+    bound.data <- bound.body$businesses
+    return(bound.data)
+  })
   
   #creates map based on data above. Displays choropleth map if 
   #nothing is entered in the filters.
   output$map <- renderLeaflet({
-    coordinates <- locationData()$coordinates  
-    if(is.null(coordinates)){
-      m <- choropleth
+    
+    if(input$chosen.location == ""){
+      if(is.null(input$map_shape_click)){  
+       m <- choropleth
+      }
+      else{
+        data.bound <- locationDataByBounds()
+        rest.coordinates <- data.bound$coordinates 
+        m <- leaflet() %>%
+          addProviderTiles(providers$CartoDB.Positron) %>% 
+          addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(data.bound$name, "<br>",
+                                                                                               "Price:", data.bound$price,"<br>",
+                                                                                               "Rating:", data.bound$rating, "<br>"
+          ))
+      }
+        
+        
+      
     }else{
+      coordinates <- locationData()$coordinates  
+      
       m <- leaflet() %>%
-      addProviderTiles(providers$CartoDB.Positron) %>% 
+        addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
-                                                                                       "Rating:", locationData()$rating))
+                                                                                       "Rating:", locationData()$rating, "<br>"
+                                                                                       ))
     }
   
-  return(m)
+    return(m)
   })
+  
+  
   
   #Outputs table with state and rating when choropleth map is displayed,
   #and outputs table with restaurant and rating when filters are used.
   output$table <- renderDataTable({
     if(is.null(locationData())){
-      state.data.names <- c("State", "Average Rating")
-      colnames(state.data) <- state.data.names
-      return(state.data)
+      if(is.null(input$map_shape_click)){
+        state.data.names <- c("State", "Average Rating")
+        colnames(state.data) <- state.data.names
+        return(state.data)
+      }
+      else{
+        table <- locationDataByBounds() %>% select(name, rating)
+        return(table)
+      }
     }else{
-    final.frame <- locationData() %>% select(name, rating)
-    return(final.frame)
+    
+      final.frame <- locationData() %>% select(name, rating)
+      return(final.frame)
+    
     }
   })
   
