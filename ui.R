@@ -14,8 +14,9 @@ ui <- fluidPage(#theme = "style.css",
   
   navbarPage("EATOUT"),
     leafletOutput('map'),
+    tags$img(src = "img/down_arrow.png", width = "auto", height = "auto"),
     dataTableOutput('table'),
-    absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+    absolutePanel(id = "controls", class = "panel panel-default", fixed = FALSE,
                   draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
                   width = "auto", height = "auto",
   # sidebarLayout(
