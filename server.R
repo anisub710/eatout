@@ -2,7 +2,10 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
-library(dplyr)
+library(maps)
+library(ggplot2)
+library(geojsonio)
+library(plotly)
 
 source("accessToken.R")
 
@@ -46,6 +49,23 @@ server <- function(input, output){
       return(state.data)
     final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
+  })
+  
+  output$foodCategory <- renderPlotly({
+    data.categories <- (locationData())
+    data.categories <- data.frame(tolower(matrix(unlist(data.categories$categories), byrow = TRUE)))
+    colnames(data.categories) <- "Food_Category"
+    data.categories <- group_by(data.categories, Food_Category) %>% summarise('Count' = n()) %>% arrange(-Count)
+    data.categories <- head(data.categories)
+    p <- plot_ly(data.categories, labels = ~Food_Category, values = ~Count, type = 'pie', textposition = 'inside',
+                 textinfo = 'label+percent',
+                 insidetextfont = list(color = '#FFFFFF'),
+                 hoverinfo = 'text',
+                 text = ~paste(Count, 'Places')) %>%
+      layout(title = 'Top 6 Food Categories in Given Location',
+             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+    return(p)
   })
   
 }

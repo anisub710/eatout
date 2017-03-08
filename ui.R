@@ -2,8 +2,10 @@ library(leaflet)
 library(shiny)
 library(httr)
 library(jsonlite)
-library(dplyr)
-
+library(maps)
+library(ggplot2)
+library(geojsonio)
+library(plotly)
 source("accessToken.R")
 
 ui <- fluidPage(
@@ -14,7 +16,8 @@ ui <- fluidPage(
     ),
     mainPanel(
       leafletOutput('map'),
-      dataTableOutput('table')
+      ##dataTableOutput('table'),
+      plotlyOutput('foodCategory')
     )
   )
 )
