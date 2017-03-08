@@ -1,0 +1,60 @@
+@font-face {
+    font-family: BigJohn;
+    src: url(../fonts/BIGJOHN.otf);
+}
+
+.body {
+    background-color: #CDD2D4;
+}
+
+.container-fluid {
+    padding: 0;
+    background-color: #CDD2D4;
+}
+
+.panel {
+    padding: 20px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar > .container-fluid > .navbar-header > .navbar-brand {
+    /*padding: 0 20px;*/
+    background-color: #232323;
+    color: white;
+    width: calc(100vw + 10px);
+    padding-left: 50px;
+}
+
+.navbar-brand, .navbar-header, .navbar-default, .navbar-static-top {
+    font-family: Arial, sans-serif;
+    font-weight: bolder;
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 30px;
+}
+
+#map {
+    height: 80vh !important;
+}
+
+#table {
+    margin-top: 100px;
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+
+#controls {
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+}
+
+#controls:hover {
+    opacity: 1;
+}
+
+#chosen.location {
+    background-color: black;
+}

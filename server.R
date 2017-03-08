@@ -3,7 +3,7 @@ library(shiny)
 library(httr)
 library(jsonlite)
 library(dplyr)
-#install.package('geojsonio')
+#install.packages('geojsonio')
 library(geojsonio)
 library(sp)
 
@@ -39,7 +39,7 @@ labels <- sprintf("<strong>%s</strong><br/><strong> Rating: </strong> <em>%g</em
 #makes the choropleth map
  choropleth <- leaflet(restaurant.data) %>%
               setView(lng = -94, lat = 37.45, zoom = 4) %>% 
-              addTiles()%>%
+              addProviderTiles(providers$CartoDB.Positron) %>%
                addLegend(pal = pal, values = ~density, opacity = 0.7, title = "Ratings",
                            position = "bottomright") %>% 
                addPolygons(fillColor = ~pal(ratings),
@@ -102,10 +102,10 @@ server <- function(input, output){
   
     else{
       m <- leaflet() %>%
-        addTiles() %>%  # Add default OpenStreetMap map tiles
+      addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
-                                                                                      "Rating:", locationData()$rating))
+                                                                                       "Rating:", locationData()$rating))
     }
   
   return(m)

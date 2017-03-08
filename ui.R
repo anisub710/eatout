@@ -6,11 +6,13 @@ library(dplyr)
 
 source("accessToken.R")
 
-ui <- fluidPage(
-  titlePanel("EatOut"),
-
-  tabsetPanel(
-    tabPanel('Map',
+ui <- fluidPage(#theme = "style.css",
+  includeCSS("www/style.css"),
+  #tags$head(
+  #  tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+  #),
+  
+  navbarPage("EATOUT"),
     leafletOutput('map'),
     dataTableOutput('table'),
     absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -22,11 +24,6 @@ ui <- fluidPage(
         checkboxInput('open', label = "Only Currently Open?", value = FALSE)
       )
 
-    )
-  )
-    
 )
-
-
 
 shinyUI(ui)
