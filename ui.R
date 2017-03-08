@@ -6,24 +6,36 @@ library(dplyr)
 
 source("accessToken.R")
 
+
 ui <- fluidPage(#theme = "style.css",
   includeCSS("www/style.css"),
+  #includeScript("https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+  includeScript("www/script.js"),
   #tags$head(
-  #  tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+  #  tags$script(rel = "stylesheet", type = "text/css", href = "style.css")
   #),
   
   navbarPage("EATOUT"),
     leafletOutput('map'),
-    tags$img(src = "img/down_arrow.png", width = "auto", height = "auto"),
+    div(id = "arrow_container",
+      p("Restaurant Data"),
+      a(href = "#arrow_link",id = "arrow_link",
+          img(id = "down_arrow", src = "down_arrow.png", width = "auto", height = "auto", align = "center")
+        )
+    ),
+    h2("Current Data", id="data_title"),
     dataTableOutput('table'),
     absolutePanel(id = "controls", class = "panel panel-default", fixed = FALSE,
                   draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
                   width = "auto", height = "auto",
   # sidebarLayout(
   #   sidebarPanel(
-        textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
-        checkboxInput('open', label = "Only Currently Open?", value = FALSE)
-      )
+      textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
+      checkboxInput('open', label = "Only Currently Open?", value = FALSE)
+    ),
+    div(id = "footer",
+        "\"When in doubt, eat out!\" "
+    )
 
 )
 
