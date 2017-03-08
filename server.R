@@ -91,30 +91,43 @@ server <- function(input, output){
   #creates map based on data above. Displays choropleth map if 
   #nothing is entered in the filters.
   output$map <- renderLeaflet({
-    coordinates <- locationData()$coordinates  
-    if(is.null(coordinates)){
+    
+    if(input$chosen.location == ""){
       m <- choropleth
+      observe({
+        print(input$map_bounds)
+      })
+      
     }else{
+      coordinates <- locationData()$coordinates  
+      
       m <- leaflet() %>%
-      addProviderTiles(providers$CartoDB.Positron) %>% 
+        addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
-                                                                                       "Rating:", locationData()$rating))
+                                                                                       "Rating:", locationData()$rating, "<br>"
+                                                                                       ))
     }
   
-  return(m)
+    return(m)
   })
+  
+  
   
   #Outputs table with state and rating when choropleth map is displayed,
   #and outputs table with restaurant and rating when filters are used.
   output$table <- renderDataTable({
     if(is.null(locationData())){
+      
       state.data.names <- c("State", "Average Rating")
       colnames(state.data) <- state.data.names
       return(state.data)
+      
     }else{
-    final.frame <- locationData() %>% select(name, rating)
+    
+      final.frame <- locationData() %>% select(name, rating)
     return(final.frame)
+    
     }
   })
   
