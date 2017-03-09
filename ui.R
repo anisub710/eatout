@@ -29,11 +29,13 @@ ui <- fluidPage(#theme = "style.css",
                   draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
                   width = "auto", height = "auto",
                   textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
-                  checkboxInput('open', label = "Only Currently Open?", value = FALSE)
+                  checkboxInput('open', label = "Only Currently Open?", value = FALSE),
+                  a(href="..", "Go back to Chloropleth Map")
                   #checkboxInput('choropleth', "Go back to choropleth map?", value = FALSE)
     ),
     div(id = "footer",
-        "\"When in doubt, eat out!\" "
+        h5("\"When in doubt, eat out!\" "),
+        h5("© EatOut Inc.")
     )
 
 )
