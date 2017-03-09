@@ -61,7 +61,7 @@ choropleth <- leaflet(restaurant.data) %>%
                 textsize = "15px",
                 direction = "auto"))   
 
- 
+
 
 #reads data for table
 static.data <- read.csv("data/yelpRatings.csv")
@@ -108,10 +108,10 @@ server <- function(input, output){
         rest.coordinates <- data.bound$coordinates 
         m <- leaflet() %>%
           addProviderTiles(providers$CartoDB.Positron) %>% 
-          addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(data.bound$name, "<br>",
+          addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(paste0("<a href='",data.bound$url,"'>",data.bound$name,"</a>"), "<br>",
                                                                                                    "Price:", data.bound$price,"<br>",
                                                                                                    "Rating:", data.bound$rating, "<br>")
-                     )
+          )
       }
     }else{
       coordinates <- locationData()$coordinates  
@@ -120,11 +120,11 @@ server <- function(input, output){
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(paste0("<a href='",locationData()$url,"'>",locationData()$name,"</a>"), "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
                                                                                        "Rating:", locationData()$rating, "<br>")
-                                                                                       #img(src = locationData()$image_url)
+                   #img(src = locationData()$image_url)
         )
-    return(m)
-  }
-    })
+      return(m)
+    }
+  })
   
   
   
@@ -142,11 +142,11 @@ server <- function(input, output){
         return(table)
       }
     }else{
-    
+      
       final.frame <- locationData() %>% select(name, rating)
       return(final.frame)
-    
-
+      
+      
     }
     
     
