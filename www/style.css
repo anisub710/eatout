@@ -3,13 +3,17 @@
     src: url(../fonts/BIGJOHN.otf);
 }
 
-.body {
-    background-color: #CDD2D4;
+body {
+    background-color: #f2f2f2;
+}
+
+img {
+
 }
 
 .container-fluid {
     padding: 0;
-    background-color: #CDD2D4;
+    background-color: #f2f2f2;
 }
 
 .panel {
@@ -30,23 +34,56 @@
 
 .navbar-brand, .navbar-header, .navbar-default, .navbar-static-top {
     font-family: Arial, sans-serif;
-    font-weight: bolder;
+    font-weight: 200;
     color: white;
     font-size: 2rem;
-    letter-spacing: 30px;
+    letter-spacing: 20px;
 }
 
-#map {
-    height: 80vh !important;
+#arrow_container {
+    text-align: center;
+    padding: 40px;
 }
 
-#table {
-    margin-top: 100px;
+#down_arrow {
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
+}
+
+#arrow_link {
+    display: inline-block;
+    /*margin: 40px;*/
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#arrow_link:hover {
+    opacity: 0.5;
+}
+
+#data_title {
     margin-left: 20vw;
     margin-right: 20vw;
 }
 
+#map {
+    height: 77vh !important;
+}
+
+#table {
+    margin-top: 30px;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    box-shadow: 0px 10px 60px #d9d9d9;
+    padding: 50px;
+    background-color: white;
+    border-radius: 5px;
+}
+
 #controls {
+    border: none;
+    border-top: 10px solid #232323;
     opacity: 0.5;
     transition: opacity 0.4s ease;
 }
@@ -55,6 +92,28 @@
     opacity: 1;
 }
 
-#chosen.location {
+.form-control {
+
+}
+
+
+
+#chosen {
     background-color: black;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 20px;
+}
+
+#footer {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    margin-top: 80px;
+    background-color: #dbdbdb;
+    font-size: 2rem;
+    color: #8b8b8b;
+    text-align: center;
 }
