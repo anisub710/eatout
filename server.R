@@ -107,22 +107,32 @@ server <- function(input, output){
       }
       else{
         data.bound <- locationDataByBounds()
+        address <- data.bound$location
+        display.address <- paste0(address$address1, ", ", address$state, "-", address$zip_code)
+        phone <- data.bound$display_phone
         rest.coordinates <- data.bound$coordinates 
         m <- leaflet() %>%
           addProviderTiles(providers$CartoDB.Positron) %>% 
           addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(paste0("<a href='",data.bound$url,"'>",data.bound$name,"</a>"), "<br>",
                                                                                                    "Price:", data.bound$price,"<br>",
                                                                                                    "Rating:", data.bound$rating, "<br>",
+                                                                                                   "Address:", display.address, "<br>",
+                                                                                                   "Phone:", phone, "<br>",
                                                                                                    "<img src='", data.bound$image_url, "'/>")
           )
       }
     }else{
+      address <- locationData()$location
+      display.address <- paste0(address$address1, ", ", address$state, "-", address$zip_code)
+      phone <- locationData()$display_phone
       coordinates <- locationData()$coordinates  
       m <- leaflet() %>%
         addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(paste0("<a href='",locationData()$url,"'>",locationData()$name,"</a>"), "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
                                                                                        "Rating:", locationData()$rating, "<br>",
+                                                                                       "Address:", display.address, "<br>",
+                                                                                       "Phone:", phone, "<br>",
                                                                                        "<img src='", locationData()$image_url, "'/>")
         )
       return(m)

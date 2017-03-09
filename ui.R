@@ -15,11 +15,7 @@ source("accessToken.R")
 
 ui <- fluidPage(#theme = "style.css",
   includeCSS("www/style.css"),
-  #includeScript("https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
   includeScript("www/script.js"),
-  #tags$head(
-  #  tags$script(rel = "stylesheet", type = "text/css", href = "style.css")
-  #),
   
   navbarPage("EATOUT"),
     leafletOutput('map'),
@@ -36,9 +32,8 @@ ui <- fluidPage(#theme = "style.css",
                   width = "auto", height = "auto",
                   textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
                   checkboxInput('open', label = "Only Currently Open?", value = FALSE),
-                  a(href="..", "Go back to Chloropleth Map"),
+                  a(href="..", "Go back to Choropleth Map"),
                   plotlyOutput("pie")
-                  #checkboxInput('choropleth', "Go back to choropleth map?", value = FALSE)
     ),
     div(id = "footer",
         h5("\"When in doubt, eat out!\" "),

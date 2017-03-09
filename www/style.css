@@ -96,6 +96,24 @@ img {
 
 }
 
+.leaflet-popup-content-wrapper {
+    width: 300px;
+}
+
+.leaflet-popup-content {
+    width: auto;
+    font-size: 1.5rem;
+}
+
+.leaflet-popup-content > img {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.leaflet-popup-content > a {
+    font-size: 2rem;
+}
+
 
 
 #chosen {
