@@ -97,8 +97,7 @@ server <- function(input, output){
   })
   
   #creates map based on data above. Displays choropleth map if 
-  #nothing is entered in the filters.
-  
+  #nothing is entered in the filters, makes the choropleth map clicable.
   output$map <- renderLeaflet({
     
     if(input$chosen.location == ""){
@@ -167,6 +166,7 @@ server <- function(input, output){
     return(m)
   })
   
+  #creates pie chart in the absolute panel with cuisines in the region.
   output$pie <- renderPlotly({
     if(input$chosen.location == ""){
         if(is.null(input$map_shape_click)){
