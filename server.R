@@ -111,6 +111,7 @@ server <- function(input, output){
           addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(paste0("<a href='",data.bound$url,"'>",data.bound$name,"</a>"), "<br>",
                                                                                                    "Price:", data.bound$price,"<br>",
                                                                                                    "Rating:", data.bound$rating, "<br>")
+                                                                                                   "<img src='", locationData()$image_url, "'/>")
           )
       }
     }else{
@@ -119,8 +120,8 @@ server <- function(input, output){
         addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(paste0("<a href='",locationData()$url,"'>",locationData()$name,"</a>"), "<br>",
                                                                                        "Price:", locationData()$price,"<br>",
-                                                                                       "Rating:", locationData()$rating, "<br>")
-                   #img(src = locationData()$image_url)
+                                                                                       "Rating:", locationData()$rating, "<br>",
+                                                                                       "<img src='", locationData()$image_url, "'/>")
         )
       return(m)
     }
