@@ -5,6 +5,7 @@ library(jsonlite)
 library(dplyr)
 #install.packages('geojsonio')
 library(geojsonio)
+library(plotly)
 library(sp)
 
 
@@ -124,6 +125,7 @@ server <- function(input, output){
                                                                                        "<img src='", locationData()$image_url, "'/>")
         )
       return(m)
+
     }
   })
   
@@ -152,6 +154,27 @@ server <- function(input, output){
     
     
     return(m)
+  })
+  
+  output$pie <- renderPlotly({
+    p <- NULL
+    if(!(input$chosen.location == "")){
+    data.categories <- locationData()
+    data.categories <- data.frame(tolower(matrix(unlist(data.categories$categories), byrow = TRUE)))
+    colnames(data.categories) <- "Food_Category"
+    data.categories <- group_by(data.categories, Food_Category) %>% summarise('Count' = n()) %>% arrange(-Count)
+    data.categories <- head(data.categories)
+    
+    p <- plot_ly(data.categories, labels = ~Food_Category, values = ~Count, type = 'pie', textposition = 'inside',
+                 textinfo = 'label+percent',
+                 insidetextfont = list(color = '#FFFFFF '),
+                 hoverinfo = 'text',
+                 text = ~paste(Count, 'Places')) %>%
+      layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             showlegend = FALSE)
+    }
+    return(p)
   })
   
 }

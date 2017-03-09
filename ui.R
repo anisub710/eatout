@@ -3,6 +3,11 @@ library(shiny)
 library(httr)
 library(jsonlite)
 library(dplyr)
+#install.packages('geojsonio')
+library(geojsonio)
+library(plotly)
+library(sp)
+
 
 source("accessToken.R")
 
@@ -30,7 +35,8 @@ ui <- fluidPage(#theme = "style.css",
                   width = "auto", height = "auto",
                   textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
                   checkboxInput('open', label = "Only Currently Open?", value = FALSE),
-                  a(href="..", "Go back to Chloropleth Map")
+                  a(href="..", "Go back to Chloropleth Map"),
+                  plotlyOutput("pie")
                   #checkboxInput('choropleth', "Go back to choropleth map?", value = FALSE)
     ),
     div(id = "footer",
