@@ -5,6 +5,7 @@ library(jsonlite)
 library(dplyr)
 #install.packages('geojsonio')
 library(geojsonio)
+#install.packages('plotly')
 library(plotly)
 library(sp)
 
@@ -41,7 +42,7 @@ ui <- fluidPage(#theme = "style.css",
     ),
     div(id = "footer",
         h5("\"When in doubt, eat out!\" "),
-        h5("© EatOut Inc.")
+        h5("B) EatOut Inc.")
     )
 
 )
