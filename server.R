@@ -156,22 +156,42 @@ server <- function(input, output){
   })
   
   output$pie <- renderPlotly({
-    p <- NULL
-    if(!(input$chosen.location == "")){
-    data.categories <- locationData()
-    data.categories <- data.frame(tolower(matrix(unlist(data.categories$categories), byrow = TRUE)))
-    colnames(data.categories) <- "Food_Category"
-    data.categories <- group_by(data.categories, Food_Category) %>% summarise('Count' = n()) %>% arrange(-Count)
-    data.categories <- head(data.categories)
-    
-    p <- plot_ly(data.categories, labels = ~Food_Category, values = ~Count, type = 'pie', textposition = 'inside',
-                 textinfo = 'label+percent',
-                 insidetextfont = list(color = '#FFFFFF '),
-                 hoverinfo = 'text',
-                 text = ~paste(Count, 'Places')) %>%
-      layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-             showlegend = FALSE)
+    if(input$chosen.location == ""){
+        if(is.null(input$map_shape_click)){
+          p <- NULL
+        }
+        else{
+        data.categories <- locationDataByBounds()
+        data.categories <- data.frame(tolower(matrix(unlist(data.categories$categories), byrow = TRUE)))
+        colnames(data.categories) <- "Food_Category"
+        data.categories <- group_by(data.categories, Food_Category) %>% summarise('Count' = n()) %>% arrange(-Count)
+        data.categories <- head(data.categories)
+        
+        p <- plot_ly(data.categories, labels = ~Food_Category, values = ~Count, type = 'pie', textposition = 'inside',
+                     textinfo = 'label+percent',
+                     insidetextfont = list(color = '#FFFFFF '),
+                     hoverinfo = 'text',
+                     text = ~paste(Count, 'Places')) %>%
+          layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                 yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                 showlegend = FALSE)
+        }
+    }
+    else{
+        data.categories <- locationData()
+        data.categories <- data.frame(tolower(matrix(unlist(data.categories$categories), byrow = TRUE)))
+        colnames(data.categories) <- "Food_Category"
+        data.categories <- group_by(data.categories, Food_Category) %>% summarise('Count' = n()) %>% arrange(-Count)
+        data.categories <- head(data.categories)
+        
+        p <- plot_ly(data.categories, labels = ~Food_Category, values = ~Count, type = 'pie', textposition = 'inside',
+                     textinfo = 'label+percent',
+                     insidetextfont = list(color = '#FFFFFF '),
+                     hoverinfo = 'text',
+                     text = ~paste(Count, 'Places')) %>%
+          layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                 yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                 showlegend = FALSE)
     }
     return(p)
   })
