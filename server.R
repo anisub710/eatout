@@ -4,6 +4,7 @@ library(httr)
 library(jsonlite)
 library(dplyr)
 #install.packages('geojsonio')
+#install.packages('plotly')
 library(geojsonio)
 library(plotly)
 library(sp)
@@ -111,8 +112,8 @@ server <- function(input, output){
           addProviderTiles(providers$CartoDB.Positron) %>% 
           addMarkers(lng= rest.coordinates$longitude, lat= rest.coordinates$latitude, popup= paste(paste0("<a href='",data.bound$url,"'>",data.bound$name,"</a>"), "<br>",
                                                                                                    "Price:", data.bound$price,"<br>",
-                                                                                                   "Rating:", data.bound$rating, "<br>")
-                                                                                                   "<img src='", locationData()$image_url, "'/>")
+                                                                                                   "Rating:", data.bound$rating, "<br>",
+                                                                                                   "<img src='", data.bound$image_url, "'/>")
           )
       }
     }else{
