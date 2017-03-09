@@ -35,33 +35,33 @@ pal <- colorBin(palette = "Reds",
 #Makes labels for the choropleth map when hovered over each state.
 labels <- sprintf("<strong>%s</strong><br/><strong> Rating: </strong> <em>%g</em> ",
                   as.character(restaurant.data$NAME), round(restaurant.data$ratings, 2)) %>% 
-  lapply(htmltools::HTML)
+                   lapply(htmltools::HTML)
 
 
 
 #makes the choropleth map
 choropleth <- leaflet(restaurant.data) %>%
-  setView(lng = -94, lat = 37.45, zoom = 4) %>% 
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addLegend(pal = pal, values = ~density, opacity = 0.7, title = "Ratings",
-            position = "bottomright") %>% 
-  addPolygons(fillColor = ~pal(ratings),
-              weight = 1, #2
-              opacity = 1,
-              color = "white",
-              dashArray = "1",
-              fillOpacity = 0.7,
-              highlight = highlightOptions(
-                weight = 3, #5
-                color = "#666",
-                dashArray = "",
-                fillOpacity = 0.7,
-                bringToFront = TRUE),
-              label = labels,
-              labelOptions = labelOptions(
-                style = list("font-weight" = "normal", padding = "3px 8px"),
-                textsize = "15px",
-                direction = "auto"))   
+              setView(lng = -94, lat = 37.45, zoom = 4) %>% 
+              addProviderTiles(providers$CartoDB.Positron) %>%
+              addLegend(pal = pal, values = ~density, opacity = 0.7, title = "Ratings",
+                        position = "bottomright") %>% 
+              addPolygons(fillColor = ~pal(ratings),
+                          weight = 1, #2
+                          opacity = 1,
+                          color = "white",
+                          dashArray = "1",
+                          fillOpacity = 0.7,
+                          highlight = highlightOptions(
+                            weight = 3, #5
+                            color = "#666",
+                            dashArray = "",
+                            fillOpacity = 0.7,
+                            bringToFront = TRUE),
+                          label = labels,
+                          labelOptions = labelOptions(
+                            style = list("font-weight" = "normal", padding = "3px 8px"),
+                            textsize = "15px",
+                            direction = "auto"))   
 
 
 
