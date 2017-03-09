@@ -1,10 +1,10 @@
 # Eatout
  *"When in doubt, eat out!"*
 
-This repo contains code for the web application created using the [**Yelp Fusion API**]("https://www.yelp.com/developers"), showing average ratings of each state, and allowing users to navigate through different locations to search for restaurants corresponding to that location.
+This repo contains code for the web application created using the [**Yelp Fusion API**](https://www.yelp.com/developers), showing average ratings of each state, and allowing users to navigate through different locations to search for restaurants corresponding to that location.
 
 ### Choropleth Map
-The choropleth map (or the heat map) is the first aspect seen on the website. The color of the region of each state corresponds to the average rating of all the restaurants from the state. (data from: [Evan Moran]("http://cse.msu.edu/~moraneva/cse491Project/"")). The darker the shade of the region, the higher its average rating. Hovering over each state in the map provides the state name and its average rating. It is also possible to click on a particular state to get a response of a few restaurants in that region.
+The choropleth map (or the heat map) is the first aspect seen on the website. The color of the region of each state corresponds to the average rating of all the restaurants from the state. (data from: [Evan Moran](http://cse.msu.edu/~moraneva/cse491Project/)). The darker the shade of the region, the higher its average rating. Hovering over each state in the map provides the state name and its average rating. It is also possible to click on a particular state to get a response of a few restaurants in that region.
 
 ### Search Panel
 It is possible to get specific results from Yelp by **entering a location**(as a zipcode, address, city name, state name, or coordinates). Furthermore, it can be filtered by the restaurants that are currently open.
