@@ -111,19 +111,18 @@ server <- function(input, output){
                                                                                                "Price:", data.bound$price,"<br>",
                                                                                                "Rating:", data.bound$rating, "<br>"
           ))
+          
       }
         
         
       
     }else{
       coordinates <- locationData()$coordinates  
-      
       m <- leaflet() %>%
         addProviderTiles(providers$CartoDB.Positron) %>% 
         addMarkers(lng= coordinates$longitude, lat= coordinates$latitude, popup= paste(locationData()$name, "<br>",
-                                                                                       "Price:", locationData()$price,"<br>",
-                                                                                       "Rating:", locationData()$rating, "<br>"
-                                                                                       ))
+                                                                                       "Price:", locationData()$price, "<br>",
+                                                                                       "Rating:", locationData()$rating, "<br>"))
     }
   
     return(m)
