@@ -92,6 +92,14 @@ img {
     opacity: 1;
 }
 
+#controls > a {
+    margin-bottom: 30px;
+}
+
+#intro {
+    margin-bottom: 20px;
+}
+
 .form-control {
 
 }

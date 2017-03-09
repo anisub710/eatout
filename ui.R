@@ -18,28 +18,29 @@ ui <- fluidPage(#theme = "style.css",
   includeScript("www/script.js"),
   
   navbarPage("EATOUT"),
-    leafletOutput('map'),
-    div(id = "arrow_container",
-      p("Restaurant Data"),
-      a(href = "#arrow_link",id = "arrow_link",
-          img(id = "down_arrow", src = "down_arrow.png", width = "auto", height = "auto", align = "center")
-        )
-    ),
-    h2("Current Data", id="data_title"),
-    dataTableOutput('table'),
-    absolutePanel(id = "controls", class = "panel panel-default", fixed = FALSE,
-                  draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
-                  width = "auto", height = "auto",
-                  textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
-                  checkboxInput('open', label = "Only Currently Open?", value = FALSE),
-                  a(href="..", "Go back to Choropleth Map"),
-                  plotlyOutput("pie")
-    ),
-    div(id = "footer",
-        h5("\"When in doubt, eat out!\" "),
-        h5("B) EatOut Inc.")
-    )
-
+  leafletOutput('map'),
+  div(id = "arrow_container",
+    p("Restaurant Data"),
+    a(href = "#arrow_link",id = "arrow_link",
+        img(id = "down_arrow", src = "down_arrow.png", width = "auto", height = "auto", align = "center")
+      )
+  ),
+  h2("Current Data", id="data_title"),
+  dataTableOutput('table'),
+  absolutePanel(id = "controls", class = "panel panel-default", fixed = FALSE,
+                draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
+                width = "500px", height = "auto",
+                h4("Welcome!"),
+                p(id = "intro", "This is a web application created using the Yelp Fusion API, showing average ratings of each state, and allowing users to navigate through addresses to search for restaurants corresponding to that address."),
+                textInput('chosen.location', label = "Location", placeholder = "Enter a city, zip code or address"),
+                checkboxInput('open', label = "Only Currently Open?", value = FALSE),
+                a(href="..", "Go back to Choropleth Map"),
+                plotlyOutput("pie")
+  ),
+  div(id = "footer",
+      h5("\"When in doubt, eat out!\" "),
+      h5("EatOut Inc.")
+  )
 )
 
 shinyUI(ui)
