@@ -41,7 +41,8 @@ ui <- fluidPage(#theme = "style.css",
   ),
   div(id = "footer",
       h5("\"When in doubt, eat out!\" "),
-      h5("EatOut Inc.")
+      h5("EatOut Inc."),
+      h6(a("Github",href="https://github.com/ask710/eatout", target="_blank"))
   )
 )
 
