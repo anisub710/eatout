@@ -7,7 +7,7 @@ response <- POST("https://api.yelp.com/oauth2/token", query = search.query)
 response
 body <- fromJSON(content(response, "text"))
 
-access_token <- body$access_token
+access_token <- "yweqTXomlxGi_YeT86B1JhwPr8EdzljgxLPE4dutNuedrLqE_YW1Y_2wWCUPZ4u9QdH6aU-gr8Q7w_QJgsaavt6-auMn53iCwJSMDo557Wviktlu-wBQQSH1b2-uWHYx"
 
 #USE access.code for headers
 access.code <- paste0("bearer ", access_token)
