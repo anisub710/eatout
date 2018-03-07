@@ -1,10 +1,12 @@
 name: eatout
 title: eatout
+username:
 account: ask710
 server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
 appId: 162396
-bundleId: 739813
+bundleId: 1256073
 url: https://ask710.shinyapps.io/eatout/
-when: 1489054839.07111
+when: 1520380404.36144
 asMultiple: FALSE
 asStatic: FALSE
